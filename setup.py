@@ -4,5 +4,5 @@ from setuptools import setup
 
 
 # https://github.com/pypa/setuptools_scm
-use_scm = {"write_to": "side_view/_version.py"}
+use_scm = {"write_to": "ortho_view_napari/_version.py"}
 setup(use_scm_version=use_scm)

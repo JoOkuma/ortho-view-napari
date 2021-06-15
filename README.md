@@ -1,10 +1,10 @@
-# side-view
+# ortho-view-napari
 
-[![License](https://img.shields.io/pypi/l/side-view.svg?color=green)](https://github.com/JoOkuma/side-view/raw/master/LICENSE)
-[![PyPI](https://img.shields.io/pypi/v/side-view.svg?color=green)](https://pypi.org/project/side-view)
-[![Python Version](https://img.shields.io/pypi/pyversions/side-view.svg?color=green)](https://python.org)
-[![tests](https://github.com/JoOkuma/side-view/workflows/tests/badge.svg)](https://github.com/JoOkuma/side-view/actions)
-[![codecov](https://codecov.io/gh/JoOkuma/side-view/branch/master/graph/badge.svg)](https://codecov.io/gh/JoOkuma/side-view)
+[![License](https://img.shields.io/pypi/l/ortho-view-napari.svg?color=green)](https://github.com/JoOkuma/ortho-view-napari/raw/master/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/ortho-view-napari.svg?color=green)](https://pypi.org/project/ortho-view-napari)
+[![Python Version](https://img.shields.io/pypi/pyversions/ortho-view-napari.svg?color=green)](https://python.org)
+[![tests](https://github.com/JoOkuma/ortho-view-napari/workflows/tests/badge.svg)](https://github.com/JoOkuma/ortho-view-napari/actions)
+[![codecov](https://codecov.io/gh/JoOkuma/ortho-view-napari/branch/master/graph/badge.svg)](https://codecov.io/gh/JoOkuma/ortho-view-napari)
 
 It displays the lateral view of the current 3D stack. This could be a starting point for a orthorviewer.
 
@@ -22,9 +22,9 @@ https://napari.org/docs/plugins/index.html
 
 ## Installation
 
-You can install `side-view` via [pip]:
+You can install `ortho-view-napari` via [pip]:
 
-    pip install side-view
+    pip install ortho-view-napari
 
 ## Contributing
 
@@ -34,7 +34,7 @@ the coverage at least stays the same before you submit a pull request.
 ## License
 
 Distributed under the terms of the [BSD-3] license,
-"side-view" is free and open source software
+"ortho-view-napari" is free and open source software
 
 ## Issues
 
@@ -50,7 +50,7 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 [Apache Software License 2.0]: http://www.apache.org/licenses/LICENSE-2.0
 [Mozilla Public License 2.0]: https://www.mozilla.org/media/MPL/2.0/index.txt
 [cookiecutter-napari-plugin]: https://github.com/napari/cookiecutter-napari-plugin
-[file an issue]: https://github.com/JoOkuma/side-view/issues
+[file an issue]: https://github.com/JoOkuma/ortho-view-napari/issues
 [napari]: https://github.com/napari/napari
 [tox]: https://tox.readthedocs.io/en/latest/
 [pip]: https://pypi.org/project/pip/
