@@ -1,5 +1,6 @@
 
 import napari
+from napari.layers import Layer
 from napari.layers.utils._link_layers import link_layers, unlink_layers
 from napari_plugin_engine import napari_hook_implementation
 from qtpy.QtWidgets import QWidget, QVBoxLayout
@@ -18,6 +19,8 @@ class Widget(QWidget):
         self.z_viewer = viewer
         self.z_viewer.add_shapes(self.dummy_line, name='slicing', **self.shapes_args)
         self.z_viewer.dims.events.current_step.connect(self.update_all)
+        self.z_viewer.layers.events.inserted.connect(self.on_add_layer)
+        self.z_viewer.layers.events.removed.connect(self.on_remove_layer)
         self._register_time_point_signal(self.z_viewer)
 
         self.x_viewer: Optional[napari.Viewer] = None
@@ -52,16 +55,41 @@ class Widget(QWidget):
         viewer.dims.events.current_step.disconnect()
         viewer.close()
 
-    def add_layers(self, viewer: napari.Viewer) -> None:
+    @staticmethod
+    def _copy_layer_to(viewer: napari.Viewer, layer: Layer) -> None:
+        data = layer.as_layer_data_tuple()
+        new_layer = viewer._add_layer_from_data(*data)[0]
+        link_layers([layer, new_layer])
+
+    def add_all_layers(self, viewer: napari.Viewer) -> None:
         for layer in self.z_viewer.layers:
-            data = layer.as_layer_data_tuple()
-            if data[1]['name'] != 'slicing':
-                new_layer = viewer._add_layer_from_data(*data)[0]
-                link_layers([layer, new_layer])
+            if layer.name != 'slicing':
+                self._copy_layer_to(viewer, layer)
+
+    def on_add_layer(self, event) -> None:
+        # it does not work very well with same layers that are not Image :(
+        layer = event.value
+        if self.x_viewer is not None:
+            self._copy_layer_to(self.x_viewer, layer)
+        if self.y_viewer is not None:
+            self._copy_layer_to(self.y_viewer, layer)
+
+    @staticmethod
+    def _remove_layer(viewer: napari.Viewer, name: str) -> None:
+        layer = viewer.layers[name]
+        unlink_layers([layer])
+        viewer.layers.remove(name)
+
+    def on_remove_layer(self, event) -> None:
+        layer = event.value
+        if self.x_viewer is not None:
+            self._remove_layer(self.x_viewer, layer.name)
+        if self.y_viewer is not None:
+            self._remove_layer(self.y_viewer, layer.name)
 
     def init_x_viewer(self) -> None:
         self.x_viewer = napari.Viewer(title='ortho-view-napari | side')
-        self.add_layers(self.x_viewer)
+        self.add_all_layers(self.x_viewer)
 
         self.x_viewer.dims._roll()
         self.x_viewer.dims._transpose()
@@ -73,7 +101,7 @@ class Widget(QWidget):
 
     def init_y_viewer(self) -> None:
         self.y_viewer = napari.Viewer(title='ortho-view-napari | bottom')
-        self.add_layers(self.y_viewer)
+        self.add_all_layers(self.y_viewer)
 
         self.y_viewer.dims._roll()
         self.y_viewer.dims._roll()
