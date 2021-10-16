@@ -128,27 +128,30 @@ class Widget(QWidget):
     def get_x_line(self) -> List[List[int]]:
         z_dims = self.z_viewer.dims
         y_dims = self.y_viewer.dims
+        world_extent = self.z_viewer.layers.extent.world
         line = [
-            [z_dims.current_step[-3], y_dims.current_step[-2], z_dims.range[-1][0]],
-            [z_dims.current_step[-3], y_dims.current_step[-2], z_dims.range[-1][1]],
+            [z_dims.current_step[-3], y_dims.current_step[-2], world_extent[0][-1]],
+            [z_dims.current_step[-3], y_dims.current_step[-2], world_extent[1][-1]],
         ]
         return line
 
     def get_y_line(self) -> List[List[int]]:
         z_dims = self.z_viewer.dims
         x_dims = self.x_viewer.dims
+        world_extent = self.z_viewer.layers.extent.world
         line = [
-            [z_dims.current_step[-3], z_dims.range[-2][0], x_dims.current_step[-1]],
-            [z_dims.current_step[-3], z_dims.range[-2][1], x_dims.current_step[-1]],
+            [z_dims.current_step[-3], world_extent[0][-2], x_dims.current_step[-1]],
+            [z_dims.current_step[-3], world_extent[1][-2], x_dims.current_step[-1]],
         ]
         return line
 
     def get_z_line(self) -> List[List[int]]:
         y_dims = self.y_viewer.dims
         x_dims = self.x_viewer.dims
+        world_extent = self.y_viewer.layers.extent.world
         line = [
-            [y_dims.range[-3][0], y_dims.current_step[-2], x_dims.current_step[-1]],
-            [y_dims.range[-3][1], y_dims.current_step[-2], x_dims.current_step[-1]],
+            [world_extent[0][-3], y_dims.current_step[-2], x_dims.current_step[-1]],
+            [world_extent[1][-3], y_dims.current_step[-2], x_dims.current_step[-1]],
         ]
         return line
 
