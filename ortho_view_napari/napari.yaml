@@ -1,0 +1,11 @@
+name: ortho-view-napari
+visibility: hidden
+schema_version: 0.2.0
+contributions:
+  commands:
+  - id: ortho-view-napari.Widget
+    title: Create Ortho View
+    python_name: ortho_view_napari:Widget
+  widgets:
+  - command: ortho-view-napari.Widget
+    display_name: Ortho View
