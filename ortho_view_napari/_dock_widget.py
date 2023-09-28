@@ -1,7 +1,6 @@
 
 import napari
 from napari.layers.utils._link_layers import link_layers, unlink_layers
-from napari_plugin_engine import napari_hook_implementation
 from qtpy.QtWidgets import QWidget, QVBoxLayout
 from magicgui.widgets import Checkbox
 from typing import List, Optional
@@ -154,9 +153,3 @@ class Widget(QWidget):
             [world_extent[1][-3], y_dims.current_step[-2], x_dims.current_step[-1]],
         ]
         return line
-
-
-@napari_hook_implementation
-def napari_experimental_provide_dock_widget():
-    # you can return either a single widget, or a sequence of widgets
-    return Widget, dict(name='Ortho View')
